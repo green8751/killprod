@@ -1,6 +1,6 @@
 require("util")
 
--- removes an array of effects from a resurch. full description required
+-- removes an effect from a resurch. full effect array required
 function Remove_value(array, to_be_removed)
     for _, i in pairs(to_be_removed) do
         for index, value in pairs(array) do
@@ -54,4 +54,16 @@ function Remove_effects(teck, type, effects)
         log("type error, type read ".. type .."\n effects passed through:\n".. effects)
     end
     Remove_value(array, remove)
+end
+
+-- workaround to let you use the same code in any stage of startup god this is cursed, but it works set mode to startup to make it use mods[] instead of script.mods[]
+function checkmod(modname, mode)
+    log(modname)
+    if mode == "startup" then
+        if mods[modname] then a = mods[modname] end
+        log(a)
+        return mods[modname]
+    else
+        return script.active_mods[modname]
+    end
 end
