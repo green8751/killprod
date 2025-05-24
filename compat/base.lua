@@ -109,6 +109,13 @@ end
 
 -- adds 10% damage to all weapons if bonus damage is enabled
 if settings.startup["bonus-damage"].value == true then
+    for _, i in pairs(data.raw["ammo-category"]) do
+        local n = data.raw["ammo-category"].name
+        log(n)
+    end
+end
+
+if settings.startup["bonus-damage"].value == true then
     data.extend({
         {
             type = "technology",
