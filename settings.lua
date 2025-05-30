@@ -1,29 +1,29 @@
 require("functions.violence_array_builder")
 
-KP_array_builder("starup")
+KP_array_builder("startup")
 
 data:extend({
     {
         type = "bool-setting",
-        name = "bonus-damage",
+        name = "KP-bonus-damage",
         setting_type = "startup",
         default_value = true,
         order = "a1"
     },{
         type = "bool-setting",
-        name = "ammo-prod",
+        name = "KP-ammo-prod",
         setting_type = "startup",
         default_value = true,
         order = "a2"
     },{
         type = "bool-setting",
-        name = "sci-prod",
+        name = "KP-sci-prod",
         setting_type = "startup",
-        default_value = true,
+        default_value = false,
         order = "a3"
     },{
         type = "bool-setting",
-        name = "override-Violence-values",
+        name = "KP-override-Violence-values",
         setting_type = "runtime-global",
         default_value = false,
         order = "a4"
