@@ -1,14 +1,16 @@
+require("functions.functions")
+
 -- adds 5% prod to amunition if ammo prod is enabled
-if settings.startup["ammo-prod"].value == true then
+if settings.startup["KP-ammo-prod"].value == true then
     data.extend({
         {
             type = "technology",
-            name = "ammo-prod",
+            name = "KP-ammo-prod",
             icon = "__base__/graphics/icons/firearm-magazine.png",
             upgrade = true,
             unit = {
                 count_formula = "25*2^L",
-                ingredients = {{"Violence", 1}},
+                ingredients = {{"KP-Violence", 1}},
                 time = 69
             },
             max_level = "infinite",
@@ -108,96 +110,44 @@ if settings.startup["ammo-prod"].value == true then
 end
 
 -- adds 10% damage to all weapons if bonus damage is enabled
-if settings.startup["bonus-damage"].value == true then
-    for _, i in pairs(data.raw["ammo-category"]) do
-        local n = data.raw["ammo-category"].name
-        log(n)
-    end
-end
-
-if settings.startup["bonus-damage"].value == true then
+if settings.startup["KP-bonus-damage"].value == true then
     data.extend({
         {
             type = "technology",
-            name = "ammo-damage",
+            name = "KP-bonus-damage",
             icon = "__base__/graphics/icons/firearm-magazine.png",
             upgrade = true,
             unit = {
                 count_formula = "20*2^L",
-                ingredients = {{"Violence", 1}},
+                ingredients = {{"KP-Violence", 1}},
                 time = 69
             },
             max_level = "infinite",
-            effects = {
-                {
-                    type = "ammo-damage",
-                    ammo_category = "bullet",
-                    modifier = 0.1
-                },{
-                    type = "turret-attack",
-                    turret_id = "gun-turret",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "shotgun-shell",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "cannon-shell",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "flamethrower",
-                    modifier = 0.1
-                },{
-                    type = "turret-attack",
-                    turret_id = "flamethrower-turret",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "laser",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "rocket",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "grenade",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "landmine",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "artillery-shell",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "beam",
-                    modifier = 0.1
-                },{
-                    type = "ammo-damage",
-                    ammo_category = "electric",
-                    modifier = 0.1
-                }
-            }
+            effects = {}
         }
     })
+    for i, _ in pairs(data.raw["ammo-category"]) do
+        table.insert(data.raw.technology["KP-bonus-damage"].effects,
+            {
+                type = "ammo-damage",
+                ammo_category = i,
+                modifier = 0.01
+            })
+    end
+    Remove_effects("bonus-damage", "damage",{"capsule-damage-bonus"})
 end
 
 -- adds 1% prod to sci production and labs if sci prod is enabled
-if settings.startup["sci-prod"].value == true then
+if settings.startup["KP-sci-prod"].value == true then
     data.extend({
         {
             type = "technology",
-            name = "sci-prod",
+            name = "KP-sci-prod",
             icon = "__base__/graphics/icons/lab.png",
             upgrade = true,
             unit = {
                 count_formula = "1000*L",
-                ingredients = {{"Violence", 1}},
+                ingredients = {{"KP-Violence", 1}},
                 time = 69
             },
             max_level = "infinite",

@@ -17,19 +17,7 @@ end
 function Remove_effects(teck, type, effects)
     local array
     local remove = {}
-    if teck == "ammo-damage" then
-        array = data.raw["technology"]["ammo-damage"].effects
-
-    elseif teck == "ammo-prod" then
-        array = data.raw["technology"]["ammo-prod"].effects
-
-    elseif teck == "sci-prod" then
-        array = data.raw["technology"]["sci-prod"].effects
-        
-    else
-        log("unknown teck name, name passed:".. teck)
-    end
-
+    array = data.raw["technology"]["KP-" .. teck].effects
     if type == "prod" then
         for _, i in pairs(effects) do
             table.insert(remove,
@@ -56,7 +44,7 @@ function Remove_effects(teck, type, effects)
     Remove_value(array, remove)
 end
 
--- workaround to let you use the same code in any stage of startup god this is cursed, but it works set mode to startup to make it use mods[] instead of script.mods[]
+-- workaround to let you use the same code in any stage of startup. god this is cursed, but it works. set mode to startup to make it use mods[] instead of script.mods[]
 function checkmod(modname, mode)
     log(modname)
     if mode == "startup" then
