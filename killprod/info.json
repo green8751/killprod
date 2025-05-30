@@ -1,0 +1,13 @@
+{
+    "name": "killprod",
+    "version": "1.0.0",
+    "factorio_version": "2.0",
+    "title": "KillProd",
+    "author": "Midori the Eldritch",
+    "description": "gives prod bonuses to science and resurch, as well as giving increasing amunition damage and prod bsed on kills",
+    "dependencies": [
+        "base >= 2.0",
+        "? spaceage >= 2.0",
+        "? Krastorio2 >= 2.0"
+    ]
+}
