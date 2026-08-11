@@ -1,11 +1,25 @@
--- base must come first, then order by count. multi mod is only required if they interact with the same things, or modify eachother in a way that matters for my mod
-require("compat.base")
+-- dedicated sub sections of the mod
+if settings.startup["KP-ammo-prod"].value == true then require("research-builder.KP-ammo-prod") end
+if settings.startup["KP-bonus-damage"].value == true then require("research-builder.KP-bonus-damage") end
+if settings.startup["KP-sci-prod"].value == true then require("research-builder.KP-sci-prod") end
 
--- one mod
-if mods["space-age"] then require("compat.space-age") end
-if mods["Krastorio2"] or mods["Krastorio2-spaced-out"] then require("compat.krastorio") end
+-- one mod compat list
+--[[
+"space-age"
+"Krastorio2"
+]]
 
---2 mod compat
+-- 2 mod compat list
+--[[
+"Krastorio2-spaced-out"
+]]
+
+-- py pack compat list. for people who hate themselves, but not THAT much.
+--[[
+"pyalienlife"
+"pyhightech"
+"pyalternativeenergy" -- implicit. same with the rest of py
+]]
 
 -- add placeholders
 data.extend({
@@ -14,7 +28,8 @@ data.extend({
         name = "KP-Violence",
         stack_size = 50,
         icon = "__base__/graphics/icons/small-biter-corpse.png",
-        durability = 1
+        durability = 1,
+        order = "zzz"
     },{--adds the vake lab for teh placeholder
         type = "lab",
         name = "KP-Violence-lab",

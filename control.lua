@@ -1,6 +1,7 @@
 require("functions.violence_array_builder")
+require("functions.commands")
 
--- SB-Violence requires the the violence score to have been run at least once to work, after the save is made or loaded.
+-- KP-Violence requires the the violence score to have been run at least once to work, after the save is made or loaded.
 script.on_init(function()
     commands.add_command("KP-Violence", "prints out violence data", function()
         print_violence()
@@ -20,7 +21,7 @@ script.on_load(function()
         detailed_violence()
     end)
     KP_array_builder()
-    log(final_array[small][1][1])
+    -- log(final_array[small][1][1])
 end)
 
 script.on_configuration_changed(function(event)
@@ -56,27 +57,6 @@ function initialize_storage()
     end
 end
 
-function print_violence()
-    --basegame values
-    game.print("small violence = " .. storage.small_score)
-    game.print("medium violence = " .. storage.medium_score)
-    game.print("big violence = " .. storage.big_score)
-    game.print("behemoth violence = " .. storage.behemoth_score)
-    game.print("spawner violence = " .. storage.nest_score)
-
-    --space age values
-    if script.active_mods["space-age"] then
-        game.print("demolisher violence = " .. storage.demolisher_score)
-        game.print("stomper violence = " .. storage.stomper_score)
-        game.print("strider violence = " .. storage.strafer_score)
-        game.print("wriggler violence = " .. storage.wriggler_score + storage.premature_score)
-        game.print("egg raft violence = " .. storage.raft_score)
-    end
-    --total, must be last
-    game.print("total Violence = " .. storage.total_score)
-end
-
-
 function get_kill_count(array)
     local force = game.forces["player"]
     local kills = 0
@@ -102,22 +82,22 @@ script.on_nth_tick(600, function(event)
     storage.total_score = storage.small_score + storage.medium_score + storage.big_score + storage.behemoth_score + storage.nest_score
     -- if space age is active, add the space age values
     if script.active_mods["space-age"] then
-        storage.demolisher_score = get_kill_count("demolisher")
-        storage.strafer_score = get_kill_count("strafer")
-        storage.stomper_score = get_kill_count("stomper")
-        storage.wriggler_score = get_kill_count("wriggler")
-        storage.premature_score = get_kill_count("premature")
-        storage.raft_score = get_kill_count("raft")
+        storage.demolisher_score = get_kill_count(final_array["demolisher"])
+        storage.strafer_score = get_kill_count(final_array["strafer"])
+        storage.stomper_score = get_kill_count(final_array["stomper"])
+        storage.wriggler_score = get_kill_count(final_array["wriggler"])
+        storage.premature_score = get_kill_count(final_array["premature"])
+        storage.raft_score = get_kill_count(final_array["raft"])
         storage.total_score = storage.total_score + storage.demolisher_score + storage.stomper_score + storage.strafer_score + storage.wriggler_score + storage.premature_score + storage.raft_score
     end
-    game.print("updated")
+    -- game.print("updated")
     
     if storage.total_score > 25 and settings.startup["KP-ammo-prod"].value then
             game.forces.player.technologies["KP-ammo-prod"].level = math.floor(math.log(storage.total_score/25)/math.log(2)+1)
     end
     if storage.total_score > 20 then
         if settings.startup["KP-bonus-damage"].value then
-            game.forces.player.technologies["ammo-damage"].level = math.floor(math.log(storage.total_score/20)/math.log(2)+1)
+            game.forces.player.technologies["KP-bonus-damage"].level = math.floor(math.log(storage.total_score/20)/math.log(2)+1)
         end
         if settings.startup["KP-ammo-prod"].value then
             game.forces.player.technologies["KP-sci-prod"].level = math.floor(storage.total_score/1000 +1)
