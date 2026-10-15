@@ -1,4 +1,6 @@
 require("functions.functions")
+if settings.startup["KP-ammo-prod"].value == true then
+local bonus = settings.startup["KP-ammo-prod-boost"].value
 
 -- adds 5% prod to amunition if ammo prod is enabled
 data.extend({
@@ -55,6 +57,8 @@ for _, i in pairs(ammorecipe) do
         {
             type = "change-recipe-productivity",
             recipe = i,
-            change = 0.05
+            change = bonus
         })
+end
+
 end

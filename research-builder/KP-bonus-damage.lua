@@ -1,4 +1,6 @@
 require("functions.functions")
+if settings.startup["KP-bonus-damage"].value == true then
+local bonus = settings.startup["KP-bonus-damage-boost"].value
 
 -- adds 10% damage to all weapons if bonus damage is enabled
 data.extend({
@@ -17,11 +19,11 @@ data.extend({
             {
                 type = "turret-attack",
                 turret_id = "flamethrower-turret",
-                modifier = 0.1
+                modifier = bonus
             },{
                 type = "turret-attack",
                 turret_id = "gun-turret",
-                modifier = 0.1
+                modifier = bonus
             }
         }
     }
@@ -54,6 +56,8 @@ for _, i in pairs(ammocats) do
         {
             type = "ammo-damage",
             ammo_category = i,
-            modifier = 0.1
+            modifier = bonus
         })
+end
+
 end

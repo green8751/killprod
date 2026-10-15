@@ -27,6 +27,33 @@ data:extend({
         setting_type = "runtime-global",
         default_value = false,
         order = "a4"
+    },{
+        type = "double-setting",
+        name = "KP-ammo-prod-boost",
+        setting_type = "startup",
+        default_value = 0.05,
+        minimum_value = 0.01,
+        maximum_value = 1,
+        hidden = true,
+        order = a5
+    },{
+        type = "double-setting",
+        name = "KP-bonus-damage-boost",
+        setting_type = "startup",
+        default_value = 0.1,
+        minimum_value = 0.01,
+        maximum_value = 1,
+        hidden = true,
+        order = a6
+    },{
+        type = "double-setting",
+        name = "KP-sci-prod-boost",
+        setting_type = "startup",
+        default_value = 0.05,
+        minimum_value = 0.01,
+        maximum_value = 1,
+        hidden = true,
+        order = a7
     }
 })
 
@@ -36,7 +63,7 @@ for n, i in pairs(final_array) do
     x = x + 1
     for q, j in pairs(i) do
         y = y + 1
-        data.extend({
+        data:extend({
             {
                 type = "double-setting",
                 name = "KP-" .. j[1],

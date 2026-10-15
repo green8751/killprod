@@ -1,4 +1,6 @@
 require("functions.functions")
+if settings.startup["KP-sci-prod"].value == true then
+local bonus = settings.startup["KP-sci-prod-boost"].value
 
 -- adds 5% prod to labs if sci prod is enabled
 data.extend({
@@ -8,7 +10,7 @@ data.extend({
         icon = "__base__/graphics/icons/lab.png",
         upgrade = true,
         unit = {
-            count_formula = "1000*L",
+            count_formula = "500*2^L",
             ingredients = {{"KP-Violence", 1}},
             time = 69
         },
@@ -16,7 +18,7 @@ data.extend({
         effects = {
             {
                 type = "laboratory-productivity",
-                modifier = 0.05
+                modifier = bonus
             }
         }
     }
@@ -54,7 +56,9 @@ for _, i in pairs(sci_types) do
         {
             type = "change-recipe-productivity",
             recipe = i,
-            change = 0.05
+            change = bonus
         }
     )
+end
+
 end

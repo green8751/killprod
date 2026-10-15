@@ -100,7 +100,7 @@ script.on_nth_tick(600, function(event)
             game.forces.player.technologies["KP-bonus-damage"].level = math.floor(math.log(storage.total_score/20)/math.log(2)+1)
         end
         if settings.startup["KP-ammo-prod"].value then
-            game.forces.player.technologies["KP-sci-prod"].level = math.floor(storage.total_score/1000 +1)
+            game.forces.player.technologies["KP-sci-prod"].level = math.floor(math.log(storage.total_score/500)/math.log(2)+1)
         end
     end
 end)
