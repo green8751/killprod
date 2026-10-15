@@ -1,7 +1,5 @@
 require("functions.functions")
 
-final_array = {}
-
 -- builds final_array, if passed the condition true it builds the default array, if not passed a value it builds the array based on the current global settings.
 -- can be passed true, false, and "startup", true and false force an operation mode, while "startup" forces a true override and passes it as a mode value.
 function KP_array_builder(override)

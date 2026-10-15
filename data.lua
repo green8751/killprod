@@ -1,7 +1,7 @@
 -- dedicated sub sections of the mod
-if settings.startup["KP-ammo-prod"].value == true then require("research-builder.KP-ammo-prod") end
-if settings.startup["KP-bonus-damage"].value == true then require("research-builder.KP-bonus-damage") end
-if settings.startup["KP-sci-prod"].value == true then require("research-builder.KP-sci-prod") end
+require("research-builder.KP-ammo-prod")
+require("research-builder.KP-bonus-damage")
+require("research-builder.KP-sci-prod")
 
 -- one mod compat list
 --[[
@@ -22,7 +22,7 @@ if settings.startup["KP-sci-prod"].value == true then require("research-builder.
 ]]
 
 -- add placeholders
-data.extend({
+data:extend({
     {--adds the violence placeholder
         type = "tool",
         name = "KP-Violence",
