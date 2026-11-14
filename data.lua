@@ -1,26 +1,3 @@
--- dedicated sub sections of the mod
-require("research-builder.KP-ammo-prod")
-require("research-builder.KP-bonus-damage")
-require("research-builder.KP-sci-prod")
-
--- one mod compat list
---[[
-"space-age"
-"Krastorio2"
-]]
-
--- 2 mod compat list
---[[
-"Krastorio2-spaced-out"
-]]
-
--- py pack compat list. for people who hate themselves, but not THAT much.
---[[
-"pyalienlife"
-"pyhightech"
-"pyalternativeenergy" -- implicit. same with the rest of py
-]]
-
 -- add placeholders
 data:extend({
     {--adds the violence placeholder

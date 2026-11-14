@@ -33,18 +33,22 @@ local ammocats = {}
 
 -- initial load of all damage types
 for i, _ in pairs(data.raw["ammo-category"]) do
-    log(i .. " recorded")
+    dlog(i .. " recorded")
     table.insert(ammocats, i)
 end
 
 -- load unwanted entries. if required for multimod compat entries can be restored via setting them to nul or false
 local unwanted = {capsule=true, melee=true, biological=true}
 if mods["Krastorio2"] then unwanted["beam"]=true end
-if mods["Krastorio2-spaced-out"] then unwanted["seismic"]=true end
+if mods["spaceage"] then unwanted["seismic"]=true end
 if mods["pyalienlife"] then
     unwanted["caravan-control"]=true
-    unwanted["dragon-breath"] = true
+    unwanted["dragon-breath"]=true
     unwanted["ulric-infusion"]=true
+end
+if mods["angelsaddons-cab"] then
+    unwanted["angels-cab-deploy"] = true
+    unwanted["angels-cab-undeploy"] = true
 end
 
 -- trim unwanted entries
@@ -52,7 +56,7 @@ listtrim(ammocats, unwanted)
 
 -- actualy make the resurch effects
 for _, i in pairs(ammocats) do
-    table.insert(data.raw.technology["KP-bonus-damage"].effects,
+    table.insert(data.raw.technology["KP-bonus-damage"].effects--[[@cast -?]],
         {
             type = "ammo-damage",
             ammo_category = i,
