@@ -35,7 +35,7 @@ data:extend({
         minimum_value = 0.01,
         maximum_value = 1,
         hidden = true,
-        order = a5
+        order = "a5"
     },{
         type = "double-setting",
         name = "KP-bonus-damage-boost",
@@ -44,7 +44,7 @@ data:extend({
         minimum_value = 0.01,
         maximum_value = 1,
         hidden = true,
-        order = a6
+        order = "a6"
     },{
         type = "double-setting",
         name = "KP-sci-prod-boost",
@@ -53,16 +53,18 @@ data:extend({
         minimum_value = 0.01,
         maximum_value = 1,
         hidden = true,
-        order = a7
+        order = "a7"
     }
 })
 
 local x = 0
-for n, i in pairs(final_array) do
+local total = 0
+for n, i in pairs(Final_Array) do
     local y = 0
     x = x + 1
     for q, j in pairs(i) do
         y = y + 1
+        total = total + 1
         data:extend({
             {
                 type = "double-setting",
@@ -71,7 +73,47 @@ for n, i in pairs(final_array) do
                 default_value = j[2],
                 minimum_value = 0.01,
                 maximum_value = 1000,
-                order = "b" .. x .. y
+                order = "b" .. string.format("%02d", x) .. string.format("%02d", y)
+            }
+        })
+    end
+end
+if total < 100 then
+    log(total .. " settings generated")
+else
+    log("WARNING: TOO MANY SETTINGS ARE GENERATING, CHECK CAUSE. " .. total .. " SETTINGS GENERATED")
+end
+
+if mods["Voidcraft"] then
+    data:extend({
+        {
+            type = "bool-setting",
+            name = "KP-raw-void",
+            setting_type = "startup",
+            default_value = false,
+            order = "b1"
+        },{
+            type = "bool-setting",
+            name = "KP-flux-void",
+            setting_type = "startup",
+            default_value = false,
+            order = "b2"
+        },{
+            type = "bool-setting",
+            name = "coherence-void",
+            setting_type = "startup",
+            default_value = true,
+            order = "b3"
+        }
+    })
+    if mods["quality"] then
+        data:extend({
+            {
+                type = "bool-setting",
+                name = "quality-void",
+                setting_type = "startup",
+                default_value = false,
+                order = "b4"
             }
         })
     end

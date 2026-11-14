@@ -1,0 +1,51 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.3.7
+Date: nov 13, 2026
+  Features:
+    - added partial compat for Bobs and Angles mods, should work for all mixes of the mods, altho only a few are directly interacted with.
+    - sc
+  Bugfixes:
+    - You can no longer hear my screams of agony when viewing the code. figuring out what the base balence should be is still a nightmare im despretly pretending i have solved.
+    - fixed missing prefix on voidcraft settings
+  Changes:
+    - no longer logging all damage catagories for no reason (logging merged into devlog function)
+    - restructured the mod for easyer expansion. repeatedly
+    - technology is now generated during data-final-fixes so i can take advantage of most mods already being in there final state rather than needing to manually account for changes at various stages.
+  Plans:
+    - more playtesting. maby
+    - change settings format to use base values and multipliers based on size and catagories instead of having every entity have its own dedicated setting
+    - determine if its worth having overlapping multiplyer sets. bobs enimies has 19-21 catigories, with a root value that couls add up to max 22 settings generated. currently bobs enimies would generate an estimated 182 settings
+    - add support for at least one version of the rampant mods
+    - procrastinate dealing with rampant by adding support for literly anything else.
+    - scream more
+    - rebuild violence array builder to match current design methods and standards (love my files as functionc)
+    - make settings controlled version of the array function generated
+    - look into save file migrations (or change my code to make them unnessisary)
+    - look into setting change events
+---------------------------------------------------------------------------------------------------
+Version: 1.0.9
+Date: oct 31, 2026
+  Features:
+    - added croscompat for voidcraft and space age
+    - added croscompat for voidcraft and quality
+  Bugfixes:
+    - Fixed several localization errors
+    - Fixed changelog to have the correct dates
+    - Fixed crash when Voidcraft is not installed
+    - Fixed Voidcraft compat requireing Iridescent Industry
+    - Fixed sismec being exposed as a damage type when space age is altered by another mod
+    - Voidcraft compat settings now actualy work
+---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: oct 31, 2026
+  Features:
+    - Added Viodcraft and Iridescent Industry compatabillity
+    - If you find a way to add biters to Voidblock i geuss its also compatable with that? if you do and it breaks anything let me know.
+  Bugfixes:
+    - Fixed a crash when violence scores are between 20 and 500
+    - Fixed the Science Prod resurch trigger being controlled by the Ammo Prod Setting
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: oct 15, 2026
+  Major Features:
+    - Initial release.

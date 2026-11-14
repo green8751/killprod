@@ -21,11 +21,11 @@ end
 
 function detailed_violence()
     -- KP_array_builder()
-    local kills = 0
-    local Violence = 0
-    local total_kills = 0
-    local total_violence = 0
-    for n, i in pairs(final_array) do
+    local kills = 0.0
+    local Violence = 0.0
+    local total_kills = 0.0
+    local total_violence = 0.0
+    for n, i in pairs(Final_Array) do
         for q, j in pairs(i) do
             for _, surface in pairs(game.surfaces) do
                 kills = kills + game.forces["player"].get_kill_count_statistics(surface).get_input_count(j[1])
