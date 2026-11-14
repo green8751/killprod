@@ -18,6 +18,17 @@ simple_compat["space-age"] = {"capture-robot-rocket","railgun-ammo","tesla-ammo"
 simple_compat["pyalternativeenergy"] = {"nuclear-artillery-shell"}
 simple_compat["Voidcraft"] = {"s6x-void-atomic-bomb", "s6x-weaponize-pure-void"}
 simple_compat["IridescentIndustry"] = {"s6x-prismite-laser-ammo-r", "s6x-prismite-laser-ammo-g", "s6x-prismite-laser-ammo-b"}
+simple_compat["bobswarfare"] = {"bob-scatter-cannon-shell", "bob-atomic-artillery-shell", "bob-distractor-artillery-shell",
+            "bob-explosive-artillery-shell", "bob-fire-artillery-shell", "bob-poison-artillery-shell",
+            "bob-bullet-magazine", "bob-ap-bullet-magazine", "bob-electric-bullet-magazine", "bob-acid-bullet-magazine", "bob-he-bullet-magazine",
+            "bob-poison-bullet-magazine", "bob-flame-bullet-magazine", "bob-plasma-bullet-magazine",
+            "bob-better-shotgun-shell", "bob-better-ap-shell", "bob-shotgun-electric-shell", "bob-shotgun-acid-shell", "bob-shotgun-explosive-shell",
+            "bob-shotgun-poison-shell", "bob-shotgun-flame-shell", "bob-shotgun-uranium-shell", "bob-shotgun-plasma-shell",
+            "bob-rocket", "bob-piercing-rocket", "bob-electric-rocket", "bob-acid-rocket", "bob-explosive-rocket", "bob-poison-rocket",
+            "bob-flame-rocket", "bob-plasma-rocket", "bob-laser-rifle-battery", "bob-laser-rifle-battery-ruby", "bob-laser-rifle-battery-sapphire",
+            "bob-laser-rifle-battery-emerald", "bob-laser-rifle-battery-amethyst", "bob-laser-rifle-battery-topaz", "bob-laser-rifle-battery-diamond",
+            "bob-fire-capsule", "bob-laser-robot-capsule", "bob-distractor-mine", "bob-poison-mine", "bob-slowdown-mine"}
+simple_compat["angelsrefining"] = {"angels-atomic-bomb", "angels-atomic-bomb-2"}
 
 -- pull in setting controlled additions here
 Settings_Controled_extender(setting_controlled_ammo, simple_compat)
