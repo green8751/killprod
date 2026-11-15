@@ -1,6 +1,7 @@
 require("functions.functions")
-if settings.startup["KP-bonus-damage"].value == true then
 local bonus = settings.startup["KP-bonus-damage-boost"].value
+
+if not settings.startup["KP-bonus-damage"].value == true then return end
 
 -- adds 10% damage to all weapons if bonus damage is enabled
 data.extend({
@@ -62,6 +63,4 @@ for _, i in pairs(ammocats) do
             ammo_category = i,
             modifier = bonus
         })
-end
-
 end

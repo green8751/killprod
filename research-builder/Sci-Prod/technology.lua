@@ -1,9 +1,8 @@
 require("functions.functions")
 local sci_types = require("research-builder.Sci-Prod.science_types")
-
-if settings.startup["KP-sci-prod"].value == true then
-
 local bonus = settings.startup["KP-sci-prod-boost"].value
+
+if not settings.startup["KP-sci-prod"].value == true then return end
 
 -- adds 5% prod to labs if sci prod is enabled
 data.extend({
@@ -36,6 +35,4 @@ for _, i in pairs(sci_types) do
             change = bonus
         }
     )
-end
-
 end

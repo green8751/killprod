@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.7
-Date: nov 13, 2026
+Date: nov 15, 2026
   Features:
     - added partial compat for Bobs and Angles mods, should work for all mixes of the mods, altho only a few are directly interacted with.
     - sc
@@ -22,6 +22,10 @@ Date: nov 13, 2026
     - make settings controlled version of the array function generated
     - look into save file migrations (or change my code to make them unnessisary)
     - look into setting change events
+
+    - violence rebuilder data path- modlist generates catagories, entities are assigned catigories, missing catigories and entities are trimmed, before catigories are turned into values and multiplied
+    - catigories have a value array that includes defaults and setting pulls
+    - entities are addigned posision in the final array based on primary type (size or type, vannila size, varients and other spicies by type)
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.9
 Date: oct 31, 2026

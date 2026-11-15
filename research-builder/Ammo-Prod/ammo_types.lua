@@ -1,7 +1,7 @@
 require("functions.functions")
 local setting_controlled_ammo = require("research-builder.Ammo-Prod.setting_controlled_ammo")
 
-if settings.startup["KP-ammo-prod"].value == true then
+if not settings.startup["KP-ammo-prod"].value == true then return end
 
 local simple_compat = {}
 simple_compat["base"] = {"firearm-magazine", "piercing-rounds-magazine", "uranium-rounds-magazine", "shotgun-shell", "piercing-shotgun-shell",
@@ -18,7 +18,7 @@ simple_compat["space-age"] = {"capture-robot-rocket","railgun-ammo","tesla-ammo"
 simple_compat["pyalternativeenergy"] = {"nuclear-artillery-shell"}
 simple_compat["Voidcraft"] = {"s6x-void-atomic-bomb", "s6x-weaponize-pure-void"}
 simple_compat["IridescentIndustry"] = {"s6x-prismite-laser-ammo-r", "s6x-prismite-laser-ammo-g", "s6x-prismite-laser-ammo-b"}
-simple_compat["bobswarfare"] = {"bob-scatter-cannon-shell", "bob-atomic-artillery-shell", "bob-distractor-artillery-shell",
+simple_compat["bobwarfare"] = {"bob-scatter-cannon-shell", "bob-atomic-artillery-shell", "bob-distractor-artillery-shell",
             "bob-explosive-artillery-shell", "bob-fire-artillery-shell", "bob-poison-artillery-shell",
             "bob-bullet-magazine", "bob-ap-bullet-magazine", "bob-electric-bullet-magazine", "bob-acid-bullet-magazine", "bob-he-bullet-magazine",
             "bob-poison-bullet-magazine", "bob-flame-bullet-magazine", "bob-plasma-bullet-magazine",
@@ -43,5 +43,3 @@ if mods["Krastorio2"] then unwanted2["uranium-rounds-magazine"]=true
 end
 
 return ammotypes
-
-end

@@ -1,6 +1,6 @@
 require("functions.functions")
 
-if settings.startup["KP-sci-prod"].value == true then
+if not settings.startup["KP-sci-prod"].value == true then return end
 
 -- simple science array. format is: modname = {recipy names}. use the name of the mod that adds the pack
 local simple_compat = {}
@@ -21,4 +21,3 @@ if mods["Krastorio2-spaced-out"] then unwanted["kr-basic-tech-card"]=true end
 listtrim(sci_types, unwanted)
 
 return sci_types
-end

@@ -11,6 +11,8 @@ script.on_init(function()
     end)
     KP_array_builder()
     Initialize_Storage()
+    print("WARNING: The next version of KillProd will have an entirely new settings system.")
+    print("While there are currently no plans to change the base ballence of the mod, if you changed settings KillProd will end up calculating new values, changing Research levels.")
 end)
 
 script.on_load(function()
@@ -24,8 +26,18 @@ script.on_load(function()
     -- log(Final_Array[small][1][1])
 end)
 
+script.on_event(defines.events.on_player_created, function(event)
+    if helpers.compare_versions(script.active_mods["killprod"], storage.version_checker) > 0 then
+        game.print("WARNING: The next version of KillProd will have an entirely new settings system.")
+        game.print("While there are currently no plans to change the base ballence of the mod, if you changed settings KillProd will end up calculating new values, changing Research levels.")
+        storage.version_checker = script.active_mods["killprod"]
+    end
+end)
+
 script.on_configuration_changed(function(event)
     Initialize_Storage()
+    game.print("WARNING: The next version of KillProd will have an entirely new settings system.")
+    game.print("While there are currently no plans to change the base ballence of the mod, if you changed settings KillProd will end up calculating new values, changing Research levels.")
 end)
 
 script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
@@ -39,6 +51,7 @@ end)
 -- function for initilizing storage when needed
 function Initialize_Storage()
     storage.last_tick = storage.last_tick or 0
+    storage.version_checker = storage.version_checker or "1.1.1"
 
     --score variables
     storage.small_score = storage.small_score or 0
