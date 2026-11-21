@@ -41,7 +41,7 @@ end
 -- load unwanted entries. if required for multimod compat entries can be restored via setting them to nul or false
 local unwanted = {capsule=true, melee=true, biological=true}
 if mods["Krastorio2"] then unwanted["beam"]=true end
-if mods["spaceage"] then unwanted["seismic"]=true end
+if mods["space-age"] then unwanted["seismic"]=true end
 if mods["pyalienlife"] then
     unwanted["caravan-control"]=true
     unwanted["dragon-breath"]=true

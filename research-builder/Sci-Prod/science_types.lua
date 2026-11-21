@@ -1,6 +1,6 @@
 require("functions.functions")
 
-if not settings.startup["KP-sci-prod"].value == true then return end
+if settings.startup["KP-sci-prod"].value == "off" or settings.startup["KP-sci-prod"].value == "lab boost only" then return end
 
 -- simple science array. format is: modname = {recipy names}. use the name of the mod that adds the pack
 local simple_compat = {}

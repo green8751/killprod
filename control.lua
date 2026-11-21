@@ -1,4 +1,4 @@
-require("functions.violence_array_builder")
+require("Violence-Array.violence_array_builder")
 require("functions.commands")
 
 -- KP-Violence requires the the violence score to have been run at least once to work, after the save is made or loaded.
@@ -11,8 +11,7 @@ script.on_init(function()
     end)
     KP_array_builder()
     Initialize_Storage()
-    print("WARNING: The next version of KillProd will have an entirely new settings system.")
-    print("While there are currently no plans to change the base ballence of the mod, if you changed settings KillProd will end up calculating new values, changing Research levels.")
+    storage.version_checker = script.active_mods["killprod"]
 end)
 
 script.on_load(function()
@@ -26,25 +25,33 @@ script.on_load(function()
     -- log(Final_Array[small][1][1])
 end)
 
-script.on_event(defines.events.on_player_created, function(event)
-    if helpers.compare_versions(script.active_mods["killprod"], storage.version_checker) > 0 then
-        game.print("WARNING: The next version of KillProd will have an entirely new settings system.")
-        game.print("While there are currently no plans to change the base ballence of the mod, if you changed settings KillProd will end up calculating new values, changing Research levels.")
-        storage.version_checker = script.active_mods["killprod"]
-    end
-end)
+-- script.on_event(defines.events.on_player_created, function(event)
+-- end)
 
 script.on_configuration_changed(function(event)
+    game.print("Modlist change detected, recalculating Violence score.")
     Initialize_Storage()
-    game.print("WARNING: The next version of KillProd will have an entirely new settings system.")
-    game.print("While there are currently no plans to change the base ballence of the mod, if you changed settings KillProd will end up calculating new values, changing Research levels.")
+    Violence_Calculation()
+    game.print("Recalculation complete.")
+
+    -- check if modlist change was becasue killprod updated, if so, display any update related messages and update stored version
+    if helpers.compare_versions(script.active_mods["killprod"], storage.version_checker) > 0 then
+        game.print("WARNING: The settings system has been mearly entirely redone, if you were using Violence Override values your settings your changes have been lost")
+        if script.active_mods["space-age"] then
+            game.print("There has been a major default ballence changes for Space Age, your bonuses are likely different.")
+        else
+            game.print("There has been a minor default ballence change, your bonuses may be different.")
+        end
+        storage.version_checker = script.active_mods["killprod"]
+    end
 end)
 
 script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
     if event.setting_type == "runtime-global" and event.tick > storage.last_tick then
         KP_array_builder()
+        Violence_Calculation()
         -- why am i adding 1 to event.tick? was this paranoia or a glitch? did i run into a floating point error?
-        storage.last_tick = event.tick + 1
+        storage.last_tick = event.tick --[[ + 1 ]]
     end
 end)
 
@@ -52,22 +59,11 @@ end)
 function Initialize_Storage()
     storage.last_tick = storage.last_tick or 0
     storage.version_checker = storage.version_checker or "1.1.1"
+    storage.total_score = storage.total_score or 0.0
 
     --score variables
-    storage.small_score = storage.small_score or 0
-    storage.medium_score = storage.medium_score or 0
-    storage.big_score = storage.big_score or 0
-    storage.behemoth_score = storage.behemoth_score or 0
-    storage.nest_score = storage.nest_score or 0
-    storage.base_score = storage.base_score or 0
-    storage.total_score = storage.total_score or 0
-    if script.active_mods["space-age"] then
-        storage.demolisher_score = storage.demolisher_score or 0
-        storage.stomper_score = storage.stomper_score or 0
-        storage.strafer_score = storage.strafer_score or 0
-        storage.wriggler_score = storage.wriggler_score or 0
-        storage.premature_score = storage.premature_score or 0
-        storage.raft_score = storage.raft_score or 0
+    for i, v in pairs(Final_Array) do
+        storage[i .. "_score"] = storage[i .. "_score"] or 0
     end
 end
 
@@ -83,36 +79,44 @@ local function get_kill_count(array)
     return kills
 end
 
+-- generate Violence Score, then set resurch levels
+function Violence_Calculation()
+    storage.total_score = 0.0
+    for i, v in pairs(Final_Array) do
+        storage[i .. "_score"] = get_kill_count(v)
+        storage.total_score = storage.total_score + storage[i .. "_score"]
+    end
+    
+    -- ensure ammo prod bonuses are correct
+    if settings.startup["KP-ammo-prod"].value then
+        if storage.total_score > 25 then
+            game.forces.player.technologies["KP-ammo-prod"].level = math.floor(math.log(storage.total_score/25)/math.log(2)+1)
+        else
+            game.forces.player.technologies["KP-ammo-prod"].researched = false
+        end
+    end
 
+    -- ensure damage bonuses are correct
+    if settings.startup["KP-bonus-damage"].value then
+        if storage.total_score > 20 and settings.startup["KP-bonus-damage"].value then
+            game.forces.player.technologies["KP-bonus-damage"].level = math.floor(math.log(storage.total_score/20)/math.log(2)+1)
+        else
+            game.forces.player.technologies["KP-bonus-damage"].researched = false
+        end
+    end
+
+    -- ensure science prod bonuses are correct
+    if not settings.startup["KP-sci-prod"].value == "off" then
+        if storage.total_score > 500 then
+            game.forces.player.technologies["KP-sci-prod"].level = math.floor(math.log(storage.total_score/500)/math.log(2)+1)
+        else
+            game.forces.player.technologies["KP-sci-prod"].researched = false
+        end
+    end
+end
 
 -- every 10 seconds get the violence score, and use it to set resurch level
 script.on_nth_tick(600, function(event)
     -- if Final_Array["small"] == nil then KP_array_builder() end
-    storage.small_score = get_kill_count(Final_Array["small"])
-    storage.medium_score = get_kill_count(Final_Array["medium"])
-    storage.big_score = get_kill_count(Final_Array["big"])
-    storage.behemoth_score = get_kill_count(Final_Array["behemoth"])
-    storage.nest_score = get_kill_count(Final_Array["nest"])
-    storage.total_score = storage.small_score + storage.medium_score + storage.big_score + storage.behemoth_score + storage.nest_score
-    -- if space age is active, add the space age values
-    if script.active_mods["space-age"] then
-        storage.demolisher_score = get_kill_count(Final_Array["demolisher"])
-        storage.strafer_score = get_kill_count(Final_Array["strafer"])
-        storage.stomper_score = get_kill_count(Final_Array["stomper"])
-        storage.wriggler_score = get_kill_count(Final_Array["wriggler"])
-        storage.premature_score = get_kill_count(Final_Array["premature"])
-        storage.raft_score = get_kill_count(Final_Array["raft"])
-        storage.total_score = storage.total_score + storage.demolisher_score + storage.stomper_score + storage.strafer_score + storage.wriggler_score + storage.premature_score + storage.raft_score
-    end
-    -- game.print("updated")
-    
-    if storage.total_score > 25 and settings.startup["KP-ammo-prod"].value then
-        game.forces.player.technologies["KP-ammo-prod"].level = math.floor(math.log(storage.total_score/25)/math.log(2)+1)
-    end
-    if storage.total_score > 20 and settings.startup["KP-bonus-damage"].value then
-        game.forces.player.technologies["KP-bonus-damage"].level = math.floor(math.log(storage.total_score/20)/math.log(2)+1)
-    end
-    if storage.total_score > 500 and settings.startup["KP-sci-prod"].value then
-        game.forces.player.technologies["KP-sci-prod"].level = math.floor(math.log(storage.total_score/500)/math.log(2)+1)
-    end
+    Violence_Calculation()
 end)

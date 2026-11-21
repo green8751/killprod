@@ -1,23 +1,10 @@
 function print_violence()
-    --basegame values
-    game.print("small violence = " .. storage.small_score)
-    game.print("medium violence = " .. storage.medium_score)
-    game.print("big violence = " .. storage.big_score)
-    game.print("behemoth violence = " .. storage.behemoth_score)
-    game.print("spawner violence = " .. storage.nest_score)
-
-    --space age values
-    if script.active_mods["space-age"] then
-        game.print("demolisher violence = " .. storage.demolisher_score)
-        game.print("stomper violence = " .. storage.stomper_score)
-        game.print("strider violence = " .. storage.strafer_score)
-        game.print("wriggler violence = " .. storage.wriggler_score + storage.premature_score)
-        game.print("egg raft violence = " .. storage.raft_score)
+    --score variables
+    for i, v in pairs(Final_Array) do
+        game.print(i .. " Violence = " .. storage[i .. "_score"])
     end
-    --total, must be last
     game.print("total Violence = " .. storage.total_score)
 end
-
 
 function detailed_violence()
     -- KP_array_builder()

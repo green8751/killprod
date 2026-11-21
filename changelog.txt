@@ -1,4 +1,28 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.2
+Date: nov 15, 2026
+  Features:
+    - added partial compat for Bobs and Angles mods, should work for all mixes of the mods, altho only a few are directly interacted with.
+    - Science Productivity setting now handles science pack and lab productivity separately.
+  Bugfixes:
+    - resurch levels are properly reset if the Violence score gets too low for them to reach level 1
+    - demolisher related seismic damage catagory no longer boosted by Ammunition Damage. if mods add a player accesable seismic attack let me know and i will enable it when that mod is active
+  Changes:
+    - as a consaquence of the Settings Rework there have been several changes to ballence
+    - entity Violence Values are now based on multiplying relevant catagories together, rather than every entity having its own setting. this allows me to add compatabillity to mods like Bobs Enemies and Rampant without generating over 100 settings, which i consider far too many.
+    - generated settings are now made off of a entities catagory table, rather than one containing every hostile entity in the game.
+    - Violence Score is now regenerated on modlist change
+    - storage is now generated rather than hardcoded
+    - ingame command KP-Violence updated to use generated rather than hardcoded storage
+    - Violence_Array is now generated off lists of types and entities, rather than being directly psudo-hardcoded
+  Plans:
+    - more playtesting. maby
+    - determine if its worth having overlapping multiplyer sets. bobs enimies has 19-21 catigories, with a root value that couls add up to max 22 settings generated. currently bobs enimies would generate an estimated 182 settings
+    - add support for at least one version of the rampant mods
+    - procrastinate dealing with rampant by adding support for literly anything else.
+    - look into setting change events - may take less time than doing a full array rebuild - may not matter
+    - do performance tests for precision methods after setting up bobs enimies
+---------------------------------------------------------------------------------------------------
 Version: 1.3.7
 Date: nov 15, 2026
   Features:

@@ -1,6 +1,7 @@
-require("functions.violence_array_builder")
+-- require("Violence-Array.violence_array_builder")
+require("Violence-Array.entity-catagories")
 
-KP_array_builder("startup")
+local types = types("startup")
 
 data:extend({
     {
@@ -16,10 +17,11 @@ data:extend({
         default_value = true,
         order = "a2"
     },{
-        type = "bool-setting",
+        type = "string-setting",
         name = "KP-sci-prod",
         setting_type = "startup",
-        default_value = false,
+        default_value = "off",
+        allowed_values = {"off", "science only", "lab boost only", "both"},
         order = "a3"
     },{
         type = "bool-setting",
@@ -57,27 +59,22 @@ data:extend({
     }
 })
 
-local x = 0
 local total = 0
-for n, i in pairs(Final_Array) do
-    local y = 0
-    x = x + 1
-    for q, j in pairs(i) do
-        y = y + 1
-        total = total + 1
-        data:extend({
-            {
-                type = "double-setting",
-                name = "KP-" .. j[1],
-                setting_type = "runtime-global",
-                default_value = j[2],
-                minimum_value = 0.01,
-                maximum_value = 1000,
-                order = "b" .. string.format("%02d", x) .. string.format("%02d", y)
-            }
-        })
-    end
+local z = 0
+for i, v in pairs(types) do
+    total = total + 1
+    z = z + 1
+    data.extend({
+        {
+            type = "double-setting",
+            name = "KP-" .. i,
+            setting_type = "runtime-global",
+            default_value = v,
+            order = "b" .. string.format("%03d", z)
+        }
+    })
 end
+
 if total < 100 then
     log(total .. " settings generated")
 else
