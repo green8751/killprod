@@ -1,7 +1,7 @@
 require("functions.functions")
 local setting_controlled_ammo = require("research-builder.Ammo-Prod.setting_controlled_ammo")
 
-if not settings.startup["KP-ammo-prod"].value == true then return end
+if not settings.startup["KP-ammo-prod"].value then return end
 
 local simple_compat = {}
 simple_compat["base"] = {"firearm-magazine", "piercing-rounds-magazine", "uranium-rounds-magazine", "shotgun-shell", "piercing-shotgun-shell",
@@ -35,11 +35,10 @@ Settings_Controled_extender(setting_controlled_ammo, simple_compat)
 
 local ammotypes = Compatable_List(simple_compat)
 
--- load unwanted entries. if required for multimod compat entries can be restored via setting them to nul or false
-local unwanted2={}
-if mods["Krastorio2"] then unwanted2["uranium-rounds-magazine"]=true
-    -- trim unwanted entries
-    listtrim(simple_compat, unwanted2)
-end
+-- trim unwanted entries
+local unwanted={}
+unwanted["Krastorio2"] = {"uranium-rounds-magazine"}
+
+Compatable_List_trim(ammotypes, unwanted)
 
 return ammotypes

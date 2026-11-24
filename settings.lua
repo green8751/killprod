@@ -101,17 +101,12 @@ if mods["Voidcraft"] then
             setting_type = "startup",
             default_value = true,
             order = "b3"
+        },{
+            type = "bool-setting",
+            name = "KP-quality-void",
+            setting_type = "startup",
+            default_value = false,
+            order = "b4"
         }
     })
-    if mods["quality"] then
-        data:extend({
-            {
-                type = "bool-setting",
-                name = "KP-quality-void",
-                setting_type = "startup",
-                default_value = false,
-                order = "b4"
-            }
-        })
-    end
 end

@@ -17,7 +17,8 @@ local sci_types = Compatable_List(simple_compat)
 
 -- remove unused sci packs
 local unwanted = {}
-if mods["Krastorio2-spaced-out"] then unwanted["kr-basic-tech-card"]=true end
-listtrim(sci_types, unwanted)
+unwanted["Krastorio2-spaced-out"] = {"kr-basic-tech-card"}
+
+Compatable_List_trim(sci_types, unwanted)
 
 return sci_types

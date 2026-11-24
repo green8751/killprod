@@ -1,6 +1,6 @@
 require("functions.functions")
 
-if not settings.startup["KP-ammo-prod"].value == true then return end
+if not settings.startup["KP-ammo-prod"].value then return end
 
 local settings_comtrolled = {}
 settings_comtrolled["Voidcraft"] = {}

@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.6.2
+Version: 1.7.4
 Date: nov 15, 2026
   Features:
     - added partial compat for Bobs and Angles mods, should work for all mixes of the mods, altho only a few are directly interacted with.
@@ -7,14 +7,20 @@ Date: nov 15, 2026
   Bugfixes:
     - resurch levels are properly reset if the Violence score gets too low for them to reach level 1
     - demolisher related seismic damage catagory no longer boosted by Ammunition Damage. if mods add a player accesable seismic attack let me know and i will enable it when that mod is active
+    - Uranium Rounds are no longer given productivity bunuses when Krastorio 2 is installed, as the recipe is disabled
+    - resurch no longer has py pack 1 as a diplayed requirement when pypostprossesing is installed
+    - fixed voidcraft compat creating an unintended requirement for the quality mod
+    - voidcraft and bob's turrets are now properly given a damage bonuses like other turrets that get bonuses.
   Changes:
     - as a consaquence of the Settings Rework there have been several changes to ballence
     - entity Violence Values are now based on multiplying relevant catagories together, rather than every entity having its own setting. this allows me to add compatabillity to mods like Bobs Enemies and Rampant without generating over 100 settings, which i consider far too many.
     - generated settings are now made off of a entities catagory table, rather than one containing every hostile entity in the game.
-    - Violence Score is now regenerated on modlist change
+    - Violence Score is now recalculated on modlist and settings changes
     - storage is now generated rather than hardcoded
     - ingame command KP-Violence updated to use generated rather than hardcoded storage
     - Violence_Array is now generated off lists of types and entities, rather than being directly psudo-hardcoded
+    - minor rearangement so static portions of Tecknology are made in data
+    - bonus damage updated to currrent design standard
   Plans:
     - more playtesting. maby
     - determine if its worth having overlapping multiplyer sets. bobs enimies has 19-21 catigories, with a root value that couls add up to max 22 settings generated. currently bobs enimies would generate an estimated 182 settings

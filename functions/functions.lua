@@ -54,7 +54,7 @@ function Compatable_List(raw_array)
     for i, v in pairs(raw_array) do
         if mods[i] then
             for _, j in ipairs(v) do
-                if data.raw.recipe[j] then
+                if data.raw.recipe[j] or data.raw["ammo-category"][j] then
                     table.insert(viable, j)
                 else
                     log("recipe " .. j .. " not found")
@@ -71,7 +71,7 @@ end
 function Settings_Controled_extender(settings_array, raw_array)
     for i, v in pairs(settings_array) do
         if mods[i] then
-            for j, k in pairs(v) do
+            for j, _ in pairs(v) do
                 if settings.startup[j].value then
                     flog("setting " .. j .. " true")
                     merge_lists(raw_array[i], settings_array[i][j])
@@ -81,4 +81,17 @@ function Settings_Controled_extender(settings_array, raw_array)
             end
         end
     end
+end
+
+-- use the same format as compatable list for trim
+---@generic list_of_strings, mod, t[mod][list_of_strings]
+---@param compatable_list list_of_strings output of Compatable_List
+---@param trim t[mod][list_of_strings] things to remove
+function Compatable_List_trim(compatable_list, trim)
+    local raw = Compatable_List(trim)
+    local map = {}
+    for _, v in pairs(raw) do
+        map[v] = true
+    end
+    listtrim(compatable_list, map)
 end
